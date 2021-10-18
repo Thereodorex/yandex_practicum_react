@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState,  } from 'react';
 import PropTypes from 'prop-types';
 import style from './style.module.css';
@@ -23,9 +24,9 @@ const BurgerIngredients = ({ data }) => {
   }
 
   return (
-    <section className={`mt-10`} style={{width: '600px'}}>
+    <section className={`${style.wrapper} mt-10`}>
       <header className={`text text_type_main-large`}>Соберите бургер</header>
-      <div className="mt-5" style={{ display: 'flex' }}>
+      <div className={`${style.tabs_wrapper} mt-5`}>
         <Tab value="one" active={current === 'one'} onClick={setCurrent}>
           Булки
         </Tab>
