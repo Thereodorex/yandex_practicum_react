@@ -3,9 +3,9 @@ import style from './style.module.css';
 import PropTypes from 'prop-types';
 import { CurrencyIcon, LockIcon, DeleteIcon, DragIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import Modal from '../Modal/modal';
-import OrderDetails from '../OrderDetails';
-import IngridientDetails from '../IngridientDetails';
+import Modal from '../modal/modal';
+import OrderDetails from '../order-details';
+import IngridientDetails from '../ingridient-details';
 
 const BurgerConstructor = ({bun, mains}) => {
   const [showOrder, setShowOrder] = useState(false);
