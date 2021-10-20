@@ -8,10 +8,10 @@ import styles from './styles.module.css';
 const modalRoot = document.getElementById("react-modals");
 
 const Modal = ({ children, title, onClose }) => {
-  const mofalRef = useRef();
+  const modalRef = useRef();
 
   useEffect(() => {
-    mofalRef.current.focus();
+    modalRef.current.focus();
   }, [])
 
   const handleEsc = e => {
@@ -23,7 +23,7 @@ const Modal = ({ children, title, onClose }) => {
 
   return ReactDOM.createPortal((
     <ModalOverlay onClose={onClose}>
-      <div ref={mofalRef} tabIndex="0" onKeyDown={handleEsc} onClick={e => e.stopPropagation()} className={`${styles.modal} p-10`}>
+      <div ref={modalRef} tabIndex="0" onKeyDown={handleEsc} onClick={e => e.stopPropagation()} className={`${styles.modal} p-10`}>
         <header className={`${styles.header}`}>
           <div className="text text_type_main-large">{title}</div>
           <div><CloseIcon onClick={onClose} type="primary" /></div>

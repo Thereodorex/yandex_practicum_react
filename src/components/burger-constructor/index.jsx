@@ -5,7 +5,7 @@ import { CurrencyIcon, LockIcon, DeleteIcon, DragIcon, Button } from '@ya.prakti
 
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details';
-import IngridientDetails from '../ingridient-details';
+import IngridientDetails from '../ingredient-details';
 
 const BurgerConstructor = ({bun, mains}) => {
   const [showOrder, setShowOrder] = useState(false);
