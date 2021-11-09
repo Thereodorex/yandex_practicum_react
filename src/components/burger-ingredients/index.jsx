@@ -2,10 +2,45 @@ import React from 'react';
 import { useState,  } from 'react';
 import PropTypes from 'prop-types';
 import style from './style.module.css';
-import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch } from 'react-redux';
+import {
+  APPEND_ITEM,
+} from '../../services/actions/burgerIngredients';
+import {
+  SET_BUN,
+  APPEND_INGREDIENT,
+} from '../../services/actions/burgerConstructor';
 
 const BurgerIngredients = ({ data }) => {
+  const dispatch = useDispatch();
   const [current, setCurrent] = useState('one');
+
+  const setBun = (item) => {
+    dispatch({
+      type: SET_BUN,
+      bun: item,
+    });
+  };
+
+  const appendItem = (item) => {
+    dispatch({
+      type: APPEND_ITEM,
+      id: item._id,
+    });
+    dispatch({
+      type: APPEND_INGREDIENT,
+      item,
+    });
+  }
+
+  const handleClick = item => {
+    if (item.type === 'bun') {
+      setBun(item);
+    } else {
+      appendItem(item);
+    }
+  }
 
   const createElementsByType = type => {
     return data.map(element => {
@@ -13,8 +48,8 @@ const BurgerIngredients = ({ data }) => {
         return null;
       }
       return (
-        <li key={element._id} className={`${style.item} text text_type_main-default`}>
-          <Counter count={1} size="default" />
+        <li key={element._id} className={`${style.item} text text_type_main-default`} onClick={() => handleClick(element)}>
+          {element.count ? <Counter count={element.count} size="default" /> : null}
           <img src={element.image} alt={`${element.name}`} />
           <div className={`mt-1 mb-1 ${style.price_row}`}><div className="pr-2 text text_type_digits-default">{element.price}</div><CurrencyIcon type="primary" /></div>
           <div>{element.name}</div>

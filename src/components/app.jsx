@@ -3,19 +3,15 @@ import AppHeader from './app-header/index';
 import BurgerConstructor from './burger-constructor';
 import BurgerIngredients from './burger-ingredients';
 import style from './app.module.css';
+import { getItems } from '../services/actions/burgerIngredients';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
-  const DATA_URL = 'https://norma.nomoreparties.space/api/ingredients';
-  const [data, setData] = useState(null);
+  const dispatch = useDispatch();
+  const data = useSelector(store => store.burgerIngredients.items);
 
   useEffect(() => {
-    fetch(DATA_URL)
-    .then(resp => resp.json())
-    .then(data => setData(data.data))
-    .catch(err => {
-      console.log(err);
-      setData(null);
-    });
+    dispatch(getItems());
   }, []);
 
   return (
