@@ -1,46 +1,18 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useState,  } from 'react';
 import PropTypes from 'prop-types';
 import style from './style.module.css';
-import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
-import {
-  APPEND_ITEM,
-} from '../../services/actions/burgerIngredients';
-import {
-  SET_BUN,
-  APPEND_INGREDIENT,
-} from '../../services/actions/burgerConstructor';
+import { Tab} from '@ya.praktikum/react-developer-burger-ui-components';
+
+import DraggebleIngredient from './draggableIngredient';
 
 const BurgerIngredients = ({ data }) => {
-  const dispatch = useDispatch();
   const [current, setCurrent] = useState('one');
 
-  const setBun = (item) => {
-    dispatch({
-      type: SET_BUN,
-      bun: item,
-    });
-  };
-
-  const appendItem = (item) => {
-    dispatch({
-      type: APPEND_ITEM,
-      id: item._id,
-    });
-    dispatch({
-      type: APPEND_INGREDIENT,
-      item,
-    });
-  }
-
-  const handleClick = item => {
-    if (item.type === 'bun') {
-      setBun(item);
-    } else {
-      appendItem(item);
-    }
-  }
+  const wrapperRef = useRef(null);
+  const firstRef = useRef(null);
+  const secondRef = useRef(null);
+  const thirdRef = useRef(null);
 
   const createElementsByType = type => {
     return data.map(element => {
@@ -48,40 +20,53 @@ const BurgerIngredients = ({ data }) => {
         return null;
       }
       return (
-        <li key={element._id} className={`${style.item} text text_type_main-default`} onClick={() => handleClick(element)}>
-          {element.count ? <Counter count={element.count} size="default" /> : null}
-          <img src={element.image} alt={`${element.name}`} />
-          <div className={`mt-1 mb-1 ${style.price_row}`}><div className="pr-2 text text_type_digits-default">{element.price}</div><CurrencyIcon type="primary" /></div>
-          <div>{element.name}</div>
-        </li>
+        <DraggebleIngredient key={element._id} element={element} />
       );
     })
   }
+
+  const handleTabClick = ref => () => {
+    ref.current.scrollIntoView();
+  }
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (thirdRef.current.getBoundingClientRect().y <= wrapperRef.current.getBoundingClientRect().y) {
+        setCurrent('three');
+      } else if (secondRef.current.getBoundingClientRect().y <= wrapperRef.current.getBoundingClientRect().y) {
+        setCurrent('two');
+      } else if (firstRef.current.getBoundingClientRect().y <= wrapperRef.current.getBoundingClientRect().y) {
+        setCurrent('one');
+      }
+    };
+    wrapperRef.current.addEventListener("scroll", onScroll);
+    return () => wrapperRef.current.removeEventListener("scroll", onScroll);
+  }, [])
 
   return (
     <section className={`${style.wrapper} mt-10`}>
       <header className={`text text_type_main-large`}>Соберите бургер</header>
       <div className={`${style.tabs_wrapper} mt-5`}>
-        <Tab value="one" active={current === 'one'} onClick={setCurrent}>
+        <Tab value="one" active={current === 'one'} onClick={handleTabClick(firstRef)}>
           Булки
         </Tab>
-        <Tab value="two" active={current === 'two'} onClick={setCurrent}>
+        <Tab value="two" active={current === 'two'} onClick={handleTabClick(secondRef)}>
           Соусы
         </Tab>
-        <Tab value="three" active={current === 'three'} onClick={setCurrent}>
+        <Tab value="three" active={current === 'three'} onClick={handleTabClick(thirdRef)}>
           Начинки
         </Tab>
       </div>
-      <div className={`${style.ingridients_wrapper} mt-10`}>
-        <section>
+      <div className={`${style.ingridients_wrapper} mt-10`} ref={wrapperRef}>
+        <section ref={firstRef}>
           <h3 className={`text text_type_main-medium`}>Булки</h3>
           <ul className={`${style.list} pl-4 pr-4 pt-6`}>{createElementsByType('bun')}</ul>
         </section>
-        <section className="mt-10">
+        <section className="mt-10" ref={secondRef}>
           <h3 className={`text text_type_main-medium`}>Соусы</h3>
           <ul className={`${style.list} pl-4 pr-4 pt-6`}>{createElementsByType('sauce')}</ul>
         </section>
-        <section className="mt-10">
+        <section className="mt-10" ref={thirdRef}>
           <h3 className={`text text_type_main-medium`}>Начинки</h3>
           <ul className={`${style.list} pl-4 pr-4 pt-6`}>{createElementsByType('main')}</ul>
         </section>
