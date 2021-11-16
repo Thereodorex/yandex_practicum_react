@@ -1,0 +1,20 @@
+.wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.calories_wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+.calories_item {
+    width: 120px;
+    height: 56px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-between;
+}

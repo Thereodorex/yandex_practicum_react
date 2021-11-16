@@ -21,8 +21,19 @@
     align-items: center;
 }
 
+.wrapper {
+    width: 600px;
+}
 
 .ingridients_wrapper {
     overflow-y: auto;
     max-height: calc(100% - 156px);
+}
+
+.tabs_wrapper {
+    display: flex;
+}
+
+.tabs_wrapper > div {
+    flex-grow: 1;
 }

@@ -26,6 +26,7 @@
     justify-content: flex-start;
     background: #1C1C21;
     border-radius: 40px;
+    cursor: pointer;
 }
 
 .drag {
