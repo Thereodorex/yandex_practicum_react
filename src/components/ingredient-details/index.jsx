@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import style from './styles.module.css';
 
 import { ingredientType } from '../../utils/types';
 
-const IngredientDetails = ({ image_large, name, calories, proteins, fat, carbohydrates }) => {
+const IngredientDetails = ({element}) => {
+  const { image_large, name, calories, proteins, fat, carbohydrates } = element;
   return (
     <section className={`${style.wrapper} p-4`}>
       <img src={image_large} alt={name} width="480" height="240" />
@@ -31,6 +31,8 @@ const IngredientDetails = ({ image_large, name, calories, proteins, fat, carbohy
   )
 }
 
-IngredientDetails.propTypes = ingredientType;
+IngredientDetails.propTypes = {
+  element: ingredientType.isRequired
+}
 
 export default IngredientDetails;

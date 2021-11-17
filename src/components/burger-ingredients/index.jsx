@@ -87,7 +87,7 @@ const BurgerIngredients = () => {
       </div>
       {currentIngridient && (
         <Modal onClose={() => setCurrentIngridient(null)} title={"Детали ингредиента"}>
-          <IngridientDetails {...currentIngridient} />
+          <IngridientDetails element={currentIngridient} />
         </Modal>
       )}
     </section>

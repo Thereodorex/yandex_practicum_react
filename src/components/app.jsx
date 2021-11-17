@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import AppHeader from './app-header/index';
 import BurgerConstructor from './burger-constructor';
 import BurgerIngredients from './burger-ingredients';
@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getItems());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={style.app}>

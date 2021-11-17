@@ -6,6 +6,9 @@ import {
   APPEND_ITEM,
   DELETE_ITEM,
 } from '../actions/burgerIngredients';
+import {
+  MAKE_ORDER_SUCCESS,
+} from '../actions/orderDetails';
   
 const initialState = {
   bun: null,
@@ -52,6 +55,9 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         return item;
       })};
       return newState;
+    }
+    case MAKE_ORDER_SUCCESS: {
+      return initialState;
     }
     default: {
       return state;

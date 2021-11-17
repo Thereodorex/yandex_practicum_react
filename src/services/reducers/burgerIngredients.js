@@ -8,6 +8,9 @@ import {
   APPEND_ITEM,
   DELETE_ITEM,
 } from '../actions/burgerIngredients';
+import {
+  MAKE_ORDER_SUCCESS,
+} from '../actions/orderDetails';
 
 const initialState = {
   items: [],
@@ -65,6 +68,12 @@ export const burgerIngredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         items: state.items.map(item => item._id === action.item._id ? {...item, count: item.count - 1} : item)
+      }
+    }
+    case MAKE_ORDER_SUCCESS: {
+      return {
+        ...state,
+        items: state.items.map(item => ({...item, count: 0})),
       }
     }
     default: {

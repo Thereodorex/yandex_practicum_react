@@ -1,7 +1,4 @@
 import apiUrl from '../../utils/apiUrl';
-import {
-  SET_BUN,
-} from './burgerConstructor';
 
 export const APPEND_ITEM = "APPEND_ITEM";
 export const DELETE_ITEM = "DELETE_ITEM";
@@ -22,13 +19,6 @@ export function getItems() {
         type: GET_ITEMS_SUCCESS,
         items: data.data
       });
-      // const firstBun = data.data.find(x => x.type === 'bun');
-      // if (firstBun) {
-      //   dispatch({
-      //     type: SET_BUN,
-      //     bun: firstBun,
-      //   });
-      // }
     })
     .catch(err => {
       dispatch({type: GET_ITEMS_FAILED});

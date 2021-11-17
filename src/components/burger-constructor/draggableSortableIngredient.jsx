@@ -1,11 +1,10 @@
 import React, { useRef } from 'react';
 import style from './style.module.css';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { CurrencyIcon, DeleteIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop, useDrag } from "react-dnd";
 
-import { uniqueIngredientType } from '../../utils/types';
+import { ingredientType } from '../../utils/types';
 
 import {
   SWAP_ITEMS,
@@ -76,7 +75,7 @@ const DraggableSortableElement = ({ element }) => {
 
 
 DraggableSortableElement.propTypes = {
-  element: uniqueIngredientType.isRequired,
+  element: ingredientType.isRequired,
 };
 
 export default DraggableSortableElement;
