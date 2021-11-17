@@ -1,4 +1,7 @@
 import {
+  SET_BUN,
+} from '../actions/burgerConstructor';
+import {
   GET_ITEMS_REQUEST,
   GET_ITEMS_SUCCESS,
   GET_ITEMS_FAILED,
@@ -7,7 +10,7 @@ import {
 } from '../actions/burgerIngredients';
 
 const initialState = {
-  items: null,
+  items: [],
   isLoading: false,
   failed: false,
 };
@@ -31,6 +34,26 @@ export const burgerIngredientsReducer = (state = initialState, action) => {
     }
     case GET_ITEMS_FAILED: {
       return initialState;
+    }
+    case SET_BUN: {
+      return {
+        ...state,
+        items: state.items.map(item => {
+          if (item.type !== 'bun') {
+            return item;
+          } else if (item._id === action.bun._id) {
+            return {
+              ...item,
+              count: 2,
+            }
+          } else {
+            return {
+              ...item,
+              count: 0,
+            }
+          }
+        })
+      }
     }
     case APPEND_ITEM: {
       return {

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import style from './styles.module.css';
 
+import { ingredientType } from '../../utils/types';
+
 const IngredientDetails = ({ image_large, name, calories, proteins, fat, carbohydrates }) => {
   return (
     <section className={`${style.wrapper} p-4`}>
@@ -29,19 +31,6 @@ const IngredientDetails = ({ image_large, name, calories, proteins, fat, carbohy
   )
 }
 
-IngredientDetails.propTypes = {
-  "_id": PropTypes.string,
-  "name": PropTypes.string.isRequired,
-  "type": PropTypes.string,
-  "proteins": PropTypes.number.isRequired,
-  "fat": PropTypes.number.isRequired,
-  "carbohydrates": PropTypes.number.isRequired,
-  "calories": PropTypes.number.isRequired,
-  "price": PropTypes.number,
-  "image": PropTypes.string.isRequired,
-  "image_mobile": PropTypes.string,
-  "image_large": PropTypes.string.isRequired,
-  "__v": PropTypes.number,
-};
+IngredientDetails.propTypes = ingredientType;
 
 export default IngredientDetails;

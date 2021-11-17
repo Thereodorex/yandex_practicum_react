@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { CurrencyIcon, DeleteIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop, useDrag } from "react-dnd";
 
+import { uniqueIngredientType } from '../../utils/types';
+
 import {
   SWAP_ITEMS,
 } from '../../services/actions/burgerConstructor';
@@ -12,7 +14,7 @@ import {
   DELETE_ITEM,
 } from '../../services/actions/burgerIngredients';
 
-const DraggableSortableElement = ({ element, setCurrentIngridient }) => {
+const DraggableSortableElement = ({ element }) => {
   const dispatch = useDispatch();
   const ref = useRef(null);
 
@@ -62,7 +64,7 @@ const DraggableSortableElement = ({ element, setCurrentIngridient }) => {
   drag(drop(ref));
 
   return (
-    <li className={`${style.item} mt-4 ml-8 pt-4 pr-8 pb-4 pl-6`} onClick={() => setCurrentIngridient(element)} ref={ref}>
+    <li className={`${style.item} mt-4 ml-8 pt-4 pr-8 pb-4 pl-6`} ref={ref}>
       <div className={`${style.drag}`}><DragIcon type="primary" /></div>
       <img className="" src={element.image} alt={element.name} width="80" height="40"/>
       <div className={`ml-5 text text_type_main-default ${style.name}`}>{element.name}</div>
@@ -74,22 +76,7 @@ const DraggableSortableElement = ({ element, setCurrentIngridient }) => {
 
 
 DraggableSortableElement.propTypes = {
-  element: PropTypes.shape({
-    "id": PropTypes.string,
-    "_id": PropTypes.string,
-    "name": PropTypes.string,
-    "type": PropTypes.string,
-    "proteins": PropTypes.number,
-    "fat": PropTypes.number,
-    "carbohydrates": PropTypes.number,
-    "calories": PropTypes.number,
-    "price": PropTypes.number,
-    "image": PropTypes.string,
-    "image_mobile": PropTypes.string,
-    "image_large": PropTypes.string,
-    "__v": PropTypes.number,
-  }).isRequired,
-  setCurrentIngridient: PropTypes.func.isRequired,
+  element: uniqueIngredientType.isRequired,
 };
 
 export default DraggableSortableElement;

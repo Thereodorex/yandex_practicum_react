@@ -1,12 +1,19 @@
 import React, { useEffect, useRef } from 'react';
 import { useState,  } from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import style from './style.module.css';
 import { Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 
+import Modal from '../modal/modal';
+import IngridientDetails from '../ingredient-details';
 import DraggebleIngredient from './draggableIngredient';
 
-const BurgerIngredients = ({ data }) => {
+import { SET_ITEM_DETAILS } from '../../services/actions/ingredientDetails';
+
+const BurgerIngredients = () => {
+  const dispatch = useDispatch();
+  const data = useSelector(store => store.burgerIngredients.items);
+  const currentIngridient = useSelector(store => store.ingredientDetails.item);
   const [current, setCurrent] = useState('one');
 
   const wrapperRef = useRef(null);
@@ -14,13 +21,20 @@ const BurgerIngredients = ({ data }) => {
   const secondRef = useRef(null);
   const thirdRef = useRef(null);
 
+  const setCurrentIngridient = (item) => {
+    dispatch({
+      type: SET_ITEM_DETAILS,
+      item,
+    })
+  }
+
   const createElementsByType = type => {
     return data.map(element => {
       if (element.type !== type) {
         return null;
       }
       return (
-        <DraggebleIngredient key={element._id} element={element} />
+        <DraggebleIngredient key={element._id} element={element} onClick={() => setCurrentIngridient(element)} />
       );
     })
   }
@@ -71,25 +85,13 @@ const BurgerIngredients = ({ data }) => {
           <ul className={`${style.list} pl-4 pr-4 pt-6`}>{createElementsByType('main')}</ul>
         </section>
       </div>
+      {currentIngridient && (
+        <Modal onClose={() => setCurrentIngridient(null)} title={"Детали ингредиента"}>
+          <IngridientDetails {...currentIngridient} />
+        </Modal>
+      )}
     </section>
   )
 }
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    "_id": PropTypes.string,
-    "name": PropTypes.string,
-    "type": PropTypes.string,
-    "proteins": PropTypes.number,
-    "fat": PropTypes.number,
-    "carbohydrates": PropTypes.number,
-    "calories": PropTypes.number,
-    "price": PropTypes.number,
-    "image": PropTypes.string,
-    "image_mobile": PropTypes.string,
-    "image_large": PropTypes.string,
-    "__v": PropTypes.number,
-  })).isRequired
-};
 
 export default BurgerIngredients;

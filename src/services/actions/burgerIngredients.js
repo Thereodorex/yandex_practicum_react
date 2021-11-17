@@ -1,3 +1,4 @@
+import apiUrl from '../../utils/apiUrl';
 import {
   SET_BUN,
 } from './burgerConstructor';
@@ -9,7 +10,7 @@ export const GET_ITEMS_REQUEST = 'GET_ITEMS_REQUEST';
 export const GET_ITEMS_SUCCESS = 'GET_ITEMS_SUCCESS';
 export const GET_ITEMS_FAILED = 'GET_ITEMS_FAILED';
 
-const ITEMS_URL = 'https://norma.nomoreparties.space/api/ingredients';
+const ITEMS_URL = `${apiUrl}/ingredients`;
 
 export function getItems() {
   return function(dispatch) {
@@ -21,13 +22,13 @@ export function getItems() {
         type: GET_ITEMS_SUCCESS,
         items: data.data
       });
-      const firstBun = data.data.find(x => x.type === 'bun');
-      if (firstBun) {
-        dispatch({
-          type: SET_BUN,
-          bun: firstBun,
-        });
-      }
+      // const firstBun = data.data.find(x => x.type === 'bun');
+      // if (firstBun) {
+      //   dispatch({
+      //     type: SET_BUN,
+      //     bun: firstBun,
+      //   });
+      // }
     })
     .catch(err => {
       dispatch({type: GET_ITEMS_FAILED});
