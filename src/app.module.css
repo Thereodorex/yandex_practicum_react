@@ -9,4 +9,5 @@
   height: calc(100vh - 90px);
   max-width: 1240px;
   margin: 0 auto;
+  align-items: center;
 }

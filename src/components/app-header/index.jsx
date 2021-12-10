@@ -8,8 +8,11 @@ const AppHeader = () => {
       <div className={`${styles.container} pb-4 pt-4 text text_type_main-default`}>
         <div className={`p5 ${styles.button}`}><BurgerIcon type="primary" /><div className="ml-2">Конструктор</div></div>
         <div className={`ml-2 p5 ${styles.button} text_color_inactive`}><ListIcon type="secondary" /><div className="ml-2">Лента заказов</div></div>
-        <div className={`${styles.logo}`}><Logo /></div>
+        <div className={styles.divider}></div>
         <div className={`p5 ${styles.button} text_color_inactive`}><ProfileIcon type="secondary" /><div className="ml-2">Личный кабинет</div></div>
+      </div>
+      <div className={styles['logo-wrapper']}>
+        <Logo />
       </div>
     </div>
   )

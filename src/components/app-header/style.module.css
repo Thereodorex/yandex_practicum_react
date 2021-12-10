@@ -3,6 +3,7 @@
     display: flex;
     justify-content: center;
     background: #1C1C21;
+    position: relative;
 }
 
 .container {
@@ -25,7 +26,15 @@
     color: white;
 }
 
-.logo {
-    flex-grow: 1;
-    margin-left: 112px;
+.divider {
+    display: flex;
+    flex: 1;
+}
+
+
+.logo-wrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
